@@ -11,10 +11,6 @@ class RickAndMortyApp extends StatelessWidget {
       home: const MainScreen(),
       theme: ThemeData(
         useMaterial3: true,
-        primaryColor: const Color.fromARGB(255, 97, 221, 101),
-        colorScheme: ColorScheme.fromSeed(
-          seedColor: Colors.red,
-        ),
       ),
     );
   }

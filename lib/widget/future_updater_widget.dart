@@ -34,6 +34,12 @@ class _FutureUpdaterState<T> extends State<FutureUpdater<T>> {
     _getData();
   }
 
+  @override
+  void didUpdateWidget(covariant FutureUpdater<T> oldWidget) {
+    super.didUpdateWidget(oldWidget);
+    _getData();
+  }
+
   void _getData() async {
     await widget.future.then(
       (data) {
@@ -50,13 +56,6 @@ class _FutureUpdaterState<T> extends State<FutureUpdater<T>> {
     _loading = false;
   }
 
-  // ?
-  // @override
-  // void dispose() {
-  //   super.dispose();
-
-  // }
-
   @override
   Widget build(BuildContext context) {
     final errorBuilder = widget.errorBuilder;
@@ -67,7 +66,7 @@ class _FutureUpdaterState<T> extends State<FutureUpdater<T>> {
 
     final loadingBuilder = widget.loadingBuilder;
 
-    if (_data == null && loadingBuilder != null && _loading == true) {
+    if (_data == null && loadingBuilder != null && _loading) {
       return loadingBuilder(context);
     }
 
