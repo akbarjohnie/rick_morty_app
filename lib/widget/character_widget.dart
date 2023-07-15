@@ -13,7 +13,7 @@ class CharacterWidget extends StatelessWidget {
     required this.name,
   });
 
-  final episode;
+  final String episode;
   final String image;
   final String date;
   final String name;
@@ -23,22 +23,59 @@ class CharacterWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final themeData = Theme.of(context);
     return Center(
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: [
-          Text('Эпизод: ${episode[0].split('/').last}'),
-          Image.network(image),
-          Text("Дата: ${getDate(date)}"),
-          Text("Имя: $name"),
-          Text("Расса: $species"),
-          Text("Статус: $status"),
-          Text(
-            "Локация: ${getLocation(location.toString())}",
-            textAlign: TextAlign.center,
-          ),
-          const SizedBox(height: 20),
-        ],
+      child: Card(
+        margin: const EdgeInsets.all(16),
+        elevation: 10.0,
+        shadowColor: (status == "Alive")
+            ? themeData.colorScheme.primary
+            : themeData.colorScheme.error,
+        color: themeData.colorScheme.surface,
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Image.network(
+              image,
+              errorBuilder: (context, error, stackTrace) {
+                return const Divider(
+                  height: 0,
+                );
+              },
+            ),
+            Text("Имя: $name"),
+            Text("Дата добавления персонажа в db: ${getDate(date)}"),
+            Text('Первое появление в эпизоде №${episode.split('/').last}'),
+            Text(
+              "Локация: $location",
+              textAlign: TextAlign.center,
+            ),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Text("Расса: $species"),
+                const SizedBox(
+                  width: 5.0,
+                ),
+                if (status != 'unknown')
+                  Icon(
+                    Icons.circle,
+                    color: Color(
+                      (status == 'Alive') ? 0xFF4CAF50 : 0xFFF44336,
+                    ),
+                    size: 15.0,
+                  ),
+                if (status == 'unknown')
+                  const Icon(
+                    Icons.question_mark,
+                    color: Color(0xFF9C27B0),
+                    size: 15.0,
+                  ),
+              ],
+            ),
+            const SizedBox(height: 20),
+          ],
+        ),
       ),
     );
   }

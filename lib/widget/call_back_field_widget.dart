@@ -23,6 +23,12 @@ class _CallBackFieldWidgetState extends State<CallBackFieldWidget> {
   final TextEditingController _controller = TextEditingController();
 
   @override
+  void dispose() {
+    _controller.dispose();
+    super.dispose();
+  }
+
+  @override
   Widget build(BuildContext context) {
     return Container(
       padding: const EdgeInsets.only(
@@ -46,15 +52,18 @@ class _CallBackFieldWidgetState extends State<CallBackFieldWidget> {
           const SizedBox(height: 20),
           ElevatedButton(
             onPressed: () {
-              var intId = int.parse(_controller.text);
+              var intId = int.tryParse(_controller.text);
               var callBack = widget.id;
-              if (chIDs.contains(intId) &&
+              if (intId != 0 &&
                   callBack != null &&
-                  _controller.text.splitMapJoin(' ').splitMapJoin('') != '') {
+                  _controller.text.splitMapJoin(' ').splitMapJoin('') != '' &&
+                  intId != null) {
                 callBack(intId);
               }
             },
-            child: const Text('Показать персонажа'),
+            child: const Text(
+              'Показать персонажа',
+            ),
           ),
         ],
       ),

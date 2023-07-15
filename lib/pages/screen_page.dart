@@ -5,7 +5,8 @@ import 'package:rick_and_morty/widget/character_widget.dart';
 import 'package:rick_and_morty/widget/future_updater_widget.dart';
 
 class MainScreen extends StatefulWidget {
-  const MainScreen({super.key});
+  const MainScreen({super.key, required this.api});
+  final ApiClient api;
 
   @override
   State<MainScreen> createState() => _MainScreenState();
@@ -22,21 +23,22 @@ class _MainScreenState extends State<MainScreen> {
 
   @override
   Widget build(BuildContext context) {
-    final api = ApiClient();
-
+    var themeData = Theme.of(context);
     return Scaffold(
+      backgroundColor: themeData.colorScheme.background,
       appBar: AppBar(
         elevation: 0,
         centerTitle: true,
         title: const Text('wubba lubba dub dub'),
+        backgroundColor: themeData.colorScheme.background,
       ),
       body: ListView(
         children: [
           FutureUpdater(
-            future: api.getCharacter(characterID ?? 1),
-            errorBuilder: (_, __, ___) {
+            future: widget.api.getCharacter(characterID!),
+            errorBuilder: (_, __, data) {
               return const Center(
-                child: Text('Приключения на 20 минут'),
+                child: Text('Приключения на 20 минут, зашли и вышли'),
               );
             },
             loadingBuilder: (e) {
@@ -45,14 +47,19 @@ class _MainScreenState extends State<MainScreen> {
               );
             },
             builder: (_, characters) {
+              if (characters == null) {
+                return const Center(
+                  child: Text('Never gonna give you up'),
+                );
+              }
               return CharacterWidget(
-                date: (characters?.created.toString() ?? ''),
-                episode: (characters?.episode ?? 'hz'),
-                image: (characters?.image ?? ''),
-                location: (characters?.location.toString() ?? ''),
-                name: (characters?.name ?? ''),
-                species: (characters?.species ?? ''),
-                status: (characters?.status ?? ''),
+                date: (characters.created),
+                episode: (characters.episode[0]),
+                image: (characters.image),
+                location: (characters.location.name),
+                name: (characters.name),
+                species: (characters.species),
+                status: (characters.status),
               );
             },
           ),
