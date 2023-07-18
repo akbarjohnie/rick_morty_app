@@ -3,10 +3,11 @@ import 'dart:async';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:rick_and_morty/constants/route_constants.dart';
 import 'package:rick_and_morty/data/service/character_client.dart';
 import 'package:rick_and_morty/data/service/episode_client.dart';
-import 'package:rick_and_morty/model/character.dart';
-import 'package:rick_and_morty/model/episode.dart';
+import 'package:rick_and_morty/model/character/character.dart';
+import 'package:rick_and_morty/model/episode/episode.dart';
 import 'package:rick_and_morty/navigation/navigator/navigation_generator.dart';
 import 'package:rick_and_morty/util/pagination_builder.dart';
 import 'package:rick_and_morty/util/path_id.dart';
@@ -91,9 +92,9 @@ class _CharactersPageState extends State<CharactersPage> {
                 final character = characters[index];
                 return GestureDetector(
                   onTap: () {
-                    // TODO(netos23): dobavil
+                    // TODO: вынести в отдельный файл с rout-ами
                     NavigationGenerator.currentTabNavigator()?.pushNamed(
-                      '/character',
+                      characterPage,
                       arguments: character.id,
                     );
                   },

@@ -1,7 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:rick_and_morty/data/service/location_client.dart';
-import 'package:rick_and_morty/model/location.dart';
+import 'package:rick_and_morty/model/location/location.dart';
 
 class LocationPage extends StatelessWidget {
   const LocationPage({

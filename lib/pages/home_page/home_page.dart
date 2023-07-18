@@ -1,17 +1,14 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:rick_and_morty/assets/theme_switcher.dart';
 
 import 'package:rick_and_morty/navigation/navigator/navigation_generator.dart';
-
-typedef AppTheme = Function(bool);
 
 class HomePage extends StatefulWidget {
   const HomePage({
     super.key,
-    required this.theme,
   });
 
-  final AppTheme theme;
   @override
   State<HomePage> createState() => HomePageState();
 }
@@ -19,7 +16,7 @@ class HomePage extends StatefulWidget {
 class HomePageState extends State<HomePage> {
   final ValueNotifier<int> _notifier = ValueNotifier(0);
 
-  bool darkTheme = false;
+  bool darkMode = false;
 
   set tab(int tab) {
     _notifier.value = tab;
@@ -40,19 +37,11 @@ class HomePageState extends State<HomePage> {
       builder: (context, index, child) {
         return Scaffold(
           appBar: AppBar(
-              leading: IconButton(
-            onPressed: () {
-              darkTheme = !darkTheme;
-              widget.theme(darkTheme);
-            },
-            icon: const Icon(
-              Icons.dark_mode,
-            ),
-          )),
+            leading: const SwitchThemeWidget(),
+          ),
           body: IndexedStack(
             index: index,
             children: [
-              // TODO(netos23): dobavil
               Navigator(
                 key: NavigationGenerator.inPageNavigation[0],
                 onGenerateRoute: NavigationGenerator.onGenRouteCharacter,

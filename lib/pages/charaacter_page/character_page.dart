@@ -1,10 +1,11 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:rick_and_morty/constants/route_constants.dart';
 import 'package:rick_and_morty/data/service/character_client.dart';
 import 'package:rick_and_morty/data/service/episode_client.dart';
-import 'package:rick_and_morty/model/character.dart';
-import 'package:rick_and_morty/model/episode.dart';
+import 'package:rick_and_morty/model/character/character.dart';
+import 'package:rick_and_morty/model/episode/episode.dart';
 import 'package:rick_and_morty/navigation/navigator/navigation_generator.dart';
 import 'package:rick_and_morty/pages/episodes_page/episodes_page.dart';
 import 'package:rick_and_morty/util/path_id.dart';
@@ -143,11 +144,10 @@ class CharacterPage extends StatelessWidget {
                         subtitle: Text(character.origin.name),
                         trailing: const Icon(Icons.navigate_next),
                         onTap: () {
-                          // TODO(netos23): dobavil
-                          NavigationGenerator.tabNavigator.currentState?.tab =
-                              2;
+                          NavigationGenerator.switchTab(2);
+                          // TODO: вынести в отдельный файл с rout-ами
                           NavigationGenerator.currentTabNavigator()?.pushNamed(
-                            '/location',
+                            locationPage,
                             arguments: character.origin.url.id,
                           );
                         },
@@ -167,11 +167,10 @@ class CharacterPage extends StatelessWidget {
                         subtitle: Text(character.origin.name),
                         trailing: const Icon(Icons.navigate_next),
                         onTap: () {
-                          // TODO(netos23): dobavil
-                          NavigationGenerator.tabNavigator.currentState?.tab =
-                              2;
+                          NavigationGenerator.switchTab(2);
+                          // TODO: вынести в отдельный файл с rout-ами
                           NavigationGenerator.currentTabNavigator()?.pushNamed(
-                            '/location',
+                            locationPage,
                             arguments: character.location.url.id,
                           );
                         },
@@ -214,12 +213,10 @@ class CharacterPage extends StatelessWidget {
 
                             return GestureDetector(
                                 onTap: () {
-                                  // TODO(netos23): dobavil
-                                  NavigationGenerator
-                                      .tabNavigator.currentState?.tab = 1;
+                                  NavigationGenerator.switchTab(1);
                                   NavigationGenerator.currentTabNavigator()
                                       ?.pushNamed(
-                                    '/episode',
+                                    episodePage,
                                     arguments: character.id,
                                   );
                                 },

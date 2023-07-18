@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:rick_and_morty/model/character.dart';
+import 'package:rick_and_morty/model/character/character.dart';
 
 import 'first_episode_tile.dart';
 import 'last_location_tile.dart';

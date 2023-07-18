@@ -1,5 +1,7 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:rick_and_morty/constants/route_constants.dart';
 import 'package:rick_and_morty/pages/charaacter_page/character_page.dart';
 import 'package:rick_and_morty/pages/characters_page/characters_page.dart';
 import 'package:rick_and_morty/pages/episode_page/episode_page.dart';
@@ -22,15 +24,19 @@ class NavigationGenerator {
     return inPageNavigation[currentIndex].currentState;
   }
 
+  static switchTab(int tabId) {
+    NavigationGenerator.tabNavigator.currentState?.tab = tabId;
+  }
+
   static Route<dynamic> onGenRouteCharacter(RouteSettings settings) {
     switch (settings.name) {
       case '/':
-        return MaterialPageRoute(
+        return CupertinoPageRoute(
           settings: settings,
           builder: (_) => const CharactersPage(),
         );
-      case '/character':
-        return MaterialPageRoute(
+      case characterPage:
+        return CupertinoPageRoute(
           settings: settings,
           builder: (context) => CharacterPage(
             id: settings.arguments as int,
@@ -53,12 +59,12 @@ class NavigationGenerator {
   static Route<dynamic> onGenRouteEpisode(RouteSettings settings) {
     switch (settings.name) {
       case '/':
-        return MaterialPageRoute(
+        return CupertinoPageRoute(
           settings: settings,
           builder: (_) => const EpisodesPage(),
         );
-      case '/episode':
-        return MaterialPageRoute(
+      case episodePage:
+        return CupertinoPageRoute(
           settings: settings,
           builder: (context) => EpisodePage(
             id: settings.arguments as int,
@@ -80,11 +86,11 @@ class NavigationGenerator {
   static Route<dynamic> onGenRouteLocation(RouteSettings settings) {
     switch (settings.name) {
       case '/':
-        return MaterialPageRoute(
+        return CupertinoPageRoute(
           builder: (_) => const LocationsPage(),
         );
-      case '/location':
-        return MaterialPageRoute(
+      case locationPage:
+        return CupertinoPageRoute(
           builder: (context) => LocationPage(
             id: settings.arguments as int,
             locationClient: context.read(),

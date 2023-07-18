@@ -2,8 +2,9 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:rick_and_morty/constants/route_constants.dart';
 import 'package:rick_and_morty/data/service/episode_client.dart';
-import 'package:rick_and_morty/model/episode.dart';
+import 'package:rick_and_morty/model/episode/episode.dart';
 import 'package:rick_and_morty/navigation/navigator/navigation_generator.dart';
 import 'package:rick_and_morty/util/pagination_builder.dart';
 
@@ -57,9 +58,9 @@ class _EpisodesPageState extends State<EpisodesPage> {
                 final episode = episodes[index];
                 return GestureDetector(
                   onTap: () {
-                    // TODO(netos23): dobavil
+                    // TODO: вынести в отдельный файл с rout-ами
                     NavigationGenerator.currentTabNavigator()?.pushNamed(
-                      '/episode',
+                      episodePage,
                       arguments: episode.id,
                     );
                   },

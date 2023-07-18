@@ -2,8 +2,9 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:rick_and_morty/constants/route_constants.dart';
 import 'package:rick_and_morty/data/service/location_client.dart';
-import 'package:rick_and_morty/model/location.dart';
+import 'package:rick_and_morty/model/location/location.dart';
 import 'package:rick_and_morty/navigation/navigator/navigation_generator.dart';
 import 'package:rick_and_morty/util/pagination_builder.dart';
 
@@ -58,9 +59,9 @@ class _LocationsPageState extends State<LocationsPage> {
                       flex: 4,
                       child: GestureDetector(
                         onTap: () {
-                          // TODO(netos23): dobavil
+                          // TODO: вынести в отдельный файл с rout-ами
                           NavigationGenerator.currentTabNavigator()?.pushNamed(
-                            '/location',
+                            locationPage,
                             arguments: location.id,
                           );
                         },

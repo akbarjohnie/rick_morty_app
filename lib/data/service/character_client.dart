@@ -1,7 +1,7 @@
 import 'package:dio/dio.dart';
 import 'package:retrofit/http.dart';
 import 'package:rick_and_morty/data/dto/pagination.dart';
-import 'package:rick_and_morty/model/character.dart';
+import 'package:rick_and_morty/model/character/character.dart';
 
 part 'character_client.g.dart';
 
